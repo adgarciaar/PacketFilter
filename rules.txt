@@ -1,0 +1,6 @@
+#IP	rol
+10.0.0.2	SrcAddr
+20.0.0.2	SrcAddr
+#Protocol	Attribute	Condition	Conector
+tcp	DstPort	== 80	and
+tcp	PayloadLength	> 0	
