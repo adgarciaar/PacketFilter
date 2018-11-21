@@ -31,19 +31,24 @@ class Principal:
 
             # leer expresión según el archivo de reglas
             reader = FileReader()
-            functionToUse, expression = reader.readRules(file_location)
-            print("\nExpression to filter: "+expression)
+            expression = reader.readRules(file_location)
 
-            # hacer lo nuestro
-            firewall = Firewall(expression)
-            x, y, z = firewall.validateExpression()
-            if (z == "No error"):  # la expresión es correcta
-                if(functionToUse == "accept"):
-                    firewall.acceptTraffic()
-                elif(functionToUse == "block"):
-                    firewall.acceptTraffic()
+            if(expression == None):
+                print("\nThere was a problem with the file text")
             else:
-                print("The expression is wrong according to WinDivert rules")
+
+                print("\nExpression to filter: "+expression)
+
+                # hacer lo nuestro
+                firewall = Firewall(expression)
+                x, y, z = firewall.validateExpression()
+                if (z == "No error"):  # la expresión es correcta
+                    #if(functionToUse == "allow"): 
+                    #    firewall.allowTraffic(protocols, ports)
+                    #elif(functionToUse == "block"):
+                    firewall.blockTraffic()
+                else:
+                    print("The expression is wrong according to WinDivert rules")
 
         else: # si el archivo no existe se termina la ejecución
             print("The file doesn't exist")
