@@ -71,7 +71,6 @@ class FileReader:
                             expression = expression + " and "
                             
                         conditions = line.rstrip().split("\t")
-                        print(conditions)
 
                         if(len(conditions) == 1 or len(conditions) == 2):
 
@@ -87,7 +86,7 @@ class FileReader:
                                 expression = expression + "." + conditions[1]
 
                             if( numberLine != len(lines) ):
-                                expression = expression + " and "
+                                expression = expression + " or "
 
                         else:
                             print("Line "+str(numberLine)+" of the file is incorrect. It was ignored")
