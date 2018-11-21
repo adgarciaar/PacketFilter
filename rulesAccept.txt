@@ -1,0 +1,8 @@
+#Instruction
+accept
+#IP	rol
+10.0.0.2	SrcAddr
+20.0.0.2	SrcAddr
+#Protocol	Condition(optional)
+tcp	DstPort==80
+icmp
