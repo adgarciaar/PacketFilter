@@ -14,9 +14,6 @@ class FileReader:
         
         print ("\nFile with rules read")
 
-        #protocols = []
-        #ports = []
-
         if( len(lines) == 0 ):
             expression = None
             #functionToUse = None
@@ -37,7 +34,6 @@ class FileReader:
             counterConditions = 0
             numberLine = 0
             #functionToUse = ""
-            #allowTraffic = False
             
             for line in lines:
 
@@ -81,12 +77,6 @@ class FileReader:
                         conditions = line.rstrip().split("\t")
 
                         if(len(conditions) == 1 or len(conditions) == 2):
-
-                            """
-                            if(allowTraffic == True):
-                                protocols.append(conditions[0])
-                                ports.append(conditions[1])
-                            """
                             
                             expression = expression + conditions[0]
 
@@ -114,4 +104,3 @@ class FileReader:
             ports = None
         """
         return expression
-        #return functionToUse, expression, protocols, conditions

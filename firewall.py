@@ -33,7 +33,6 @@ class Firewall:
     """        
     
     def blockTraffic(self):
-        self.expression = self.expression
         with pydivert.WinDivert(self.expression,1) as w:        
             for packet in w:
                 x = 0
