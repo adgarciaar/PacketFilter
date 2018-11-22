@@ -8,15 +8,16 @@ Created on Mon Nov 19 20:15:46 2018
 from fileReader import FileReader
 from firewall import Firewall
 
-from pathlib import Path #para conseguir el path completo del archivo
-import os.path #para verificar si el archivo existe
+from pathlib import Path  # para conseguir el path completo del archivo
+import os.path  # para verificar si el archivo existe
+
 
 class Principal:
 
     def main(self):
 
         # solicitar nombre del archivo (debe estar en el misma carpeta)
-        print('Write the file name with extension (e.g. rules.txt):')
+        print('\nWrite the file name with extension (e.g. rules.txt):\n')
         filename = input()
 
         # obtener direccion absoluta del archivo:
@@ -26,14 +27,14 @@ class Principal:
         # print(file_location)
 
         # si el archivo existe la ejecución continúa
-        #https://stackoverflow.com/questions/82831/how-do-i-check-whether-a-file-exists-without-exceptions
+        # https://stackoverflow.com/questions/82831/how-do-i-check-whether-a-file-exists-without-exceptions
         if(os.path.exists(file_location) == True):
 
             # leer expresión según el archivo de reglas
             reader = FileReader()
-            expression = reader.readRules(file_location)
+            expression, instruction = reader.readRules(file_location)
 
-            if(expression == None):
+            if(expression == None or instruction == None):
                 print("\nThere was a problem with the file text")
             else:
 
@@ -41,17 +42,18 @@ class Principal:
 
                 # hacer lo nuestro
                 firewall = Firewall(expression)
-                x, y, z = firewall.validateExpression()
-                if (z == "No error"):  # la expresión es correcta
-                    #if(functionToUse == "allow"): 
-                    #    firewall.allowTraffic(protocols, ports)
-                    #elif(functionToUse == "block"):
-                    firewall.blockTraffic()
+                validation = firewall.validateExpression()
+                if (validation == "No error"):  # la expresión es correcta
+                    if(instruction == "allow"):
+                        firewall.allowTraffic()
+                    elif(instruction == "block"):
+                        firewall.blockTraffic()
                 else:
                     print("The expression is wrong according to WinDivert rules")
 
-        else: # si el archivo no existe se termina la ejecución
+        else:  # si el archivo no existe se termina la ejecución
             print("The file doesn't exist")
+
 
 if __name__ == "__main__":
     principal = Principal()
