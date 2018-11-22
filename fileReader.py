@@ -31,7 +31,7 @@ class FileReader:
         
         else:
         
-            counter = 0
+            type = ""
             expression = ""
             counterIPs = 0
             counterConditions = 0
@@ -44,7 +44,10 @@ class FileReader:
                 numberLine = numberLine + 1
                 
                 if(line[0] == "#"):
-                    counter = counter + 1
+                    if(line.rstrip() == "#IPs"):
+                        type = "IPs"
+                    elif(line.rstrip() == "#Protocols"):
+                        type = "Protocols"
                 else:
 
                     #if(counter == 1): #info de si es para aceptar o rechazar tráfico
@@ -52,7 +55,7 @@ class FileReader:
                         #if(functionToUse == "allow"):
                         #    allowTraffic = True
                     
-                    if(counter == 1): #info de las IPs
+                    if(type == "IPs"): #info de las IPs
                         
                         counterIPs = counterIPs + 1
                         if(counterIPs == 1):
@@ -66,10 +69,13 @@ class FileReader:
                         else:
                             print("Line "+str(numberLine)+" of the file is incorrect. It was ignored")
                         
-                    elif(counter == 2): #info de los protocolos
+                        if(numberLine == len(lines)):
+                            expression = expression + ")"
+                        
+                    elif(type == "Protocols"): #info de los protocolos
                         
                         counterConditions = counterConditions + 1
-                        if(counterConditions == 1):
+                        if(counterConditions == 1 and counterIPs > 0):
                             expression = expression + ") and ("
                             
                         conditions = line.rstrip().split("\t")
@@ -87,10 +93,10 @@ class FileReader:
                             if(len(conditions) == 2):
                                 expression = expression + "." + conditions[1]
 
-                            if( numberLine != len(lines) ):
+                            if( numberLine < len(lines) ):
                                 expression = expression + " or "
 
-                            if(numberLine == len(lines)):
+                            if(numberLine == len(lines) and counterIPs > 0):
                                 expression = expression + ")"
 
                         else:
