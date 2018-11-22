@@ -1,4 +1,4 @@
 #Instruction
-block
+allow
 #Protocols
 icmp

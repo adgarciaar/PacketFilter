@@ -19,7 +19,13 @@ class FileReader:
         expression = None
         instruction = None
 
-        if(len(lines) > 1):
+        if(len(lines) == 1):
+            commands = lines[0].rstrip().split("\t")
+            if( len(commands) == 2 ):
+                instruction = commands[0]
+                expression = commands[1]  
+
+        elif(len(lines) > 1):
 
             type = ""
             expression = ""
