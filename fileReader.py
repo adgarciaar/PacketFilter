@@ -47,8 +47,8 @@ class FileReader:
                             break
                         elif(line.rstrip() == "block"):
                             instruction = "block"
-                        elif(line.rstrip() == "true"):
-                            instruction = "true"
+                        elif(line.rstrip() == "allow"):
+                            instruction = "allow"
 
                     if(type == "IPs"):  # info de las IPs
 
