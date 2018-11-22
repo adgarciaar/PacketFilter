@@ -55,6 +55,8 @@ class FileReader:
                     if(counter == 1): #info de las IPs
                         
                         counterIPs = counterIPs + 1
+                        if(counterIPs == 1):
+                            expression = expression + "("
                         IPs = line.rstrip().split("\t")
                         
                         if(len(IPs) == 2):
@@ -68,7 +70,7 @@ class FileReader:
                         
                         counterConditions = counterConditions + 1
                         if(counterConditions == 1):
-                            expression = expression + " and "
+                            expression = expression + ") and ("
                             
                         conditions = line.rstrip().split("\t")
 
@@ -87,6 +89,9 @@ class FileReader:
 
                             if( numberLine != len(lines) ):
                                 expression = expression + " or "
+
+                            if(numberLine == len(lines)):
+                                expression = expression + ")"
 
                         else:
                             print("Line "+str(numberLine)+" of the file is incorrect. It was ignored")
