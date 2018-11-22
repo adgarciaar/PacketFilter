@@ -5,6 +5,7 @@ Created on Mon Nov 19 20:15:46 2018
 @author: adrian
 """
 
+# importar las clases de los otros dos archivos del proyecto
 from fileReader import FileReader
 from firewall import Firewall
 
@@ -34,6 +35,7 @@ class Principal:
             reader = FileReader()
             expression, instruction = reader.readRules(file_location)
 
+            # validar que se haya encontrado expresión e instrucción a realizar
             if(expression == None or instruction == None):
                 print("\nThere was a problem with the file text")
             else:
@@ -44,17 +46,18 @@ class Principal:
                 firewall = Firewall(expression)
                 validation = firewall.validateExpression()
                 if (validation == "No error"):  # la expresión es correcta
-                    if(instruction == "allow"):
+                    if(instruction == "allow"):  # se permite tráfico específico
                         firewall.allowTraffic()
-                    elif(instruction == "block"):
+                    elif(instruction == "block"):  # se bloquean tráfico especifico
                         firewall.blockTraffic()
-                else:
+                else:  # la expresión es errónea de acuerdo con reglas de librería WinDivert
                     print("The expression is wrong according to WinDivert rules")
 
         else:  # si el archivo no existe se termina la ejecución
             print("The file doesn't exist")
 
 
+# ejecución primaria del proyecto
 if __name__ == "__main__":
     principal = Principal()
     principal.main()
